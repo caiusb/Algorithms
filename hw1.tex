@@ -11,6 +11,9 @@
 
 \problem{1}
 
+\paragraph{a)} 
+For the $O(n^2)$ solution we compute the intersection between one segment and the rest of the segments. Then we remove that segment and recursively compute the intersections between the rest of the segments.
+
 \begin{algorithm}
 \begin{algorithmic}[5]
   \Function{intersections}{$P[1..n]$ , $Q[1..n]$}
