@@ -11,6 +11,32 @@
 
 \problem{1}
 
+\begin{algorithm}
+\begin{algorithmic}[5]
+  \Function{intersections}{$P[1..n]$ , $Q[1..n]$}
+  	\State $i \gets $ \Call{findIntersectionsWithSegment}{$P[1]$, $Q[1..n]$} \Comment{O(n)}
+	\State \Call{removePointAt}{{$i+1$, $Q[1..n]$}} \Comment{O(n)}
+
+	\Return $i + \Call{intersections}{$P[2..n]$, $Q[1..n-1]$}$
+  \EndFunction
+
+  \Function{findIntersectionsWithSegment}{$p$ , $Q[1..n]$}
+	\State $i \gets 0$
+	\While{$Q[i] < p$}
+		\State $i \gets i + 1$
+	\EndWhile
+
+	\Return $i$
+  \EndFunction
+
+  \Function{removePoint}{$i$, $Q[1..n]$}
+	\For{$j \gets i, n-1$}
+		\State $Q[i] \gets Q[i + 1]$
+	\EndFor
+  \EndFunction
+\end{algorithmic}
+\end{algorithm}
+
 Stuff for problem 1
 
 \problem{2}
