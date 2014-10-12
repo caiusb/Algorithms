@@ -41,7 +41,19 @@ For the $O(n^2)$ solution we compute the intersection between one segment and th
 	\end{algorithmic}
 \end{algorithm}
 
-Stuff for problem 1
+\clearpage
+\paragraph{Runtime analysis} 
+
+$I(n) =$ worst case runtime of function $intersections$
+
+$I(n) = I(n - 1) + 2 * O(n)$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{1a)}
+\end{figure}
+
+$I(n) = \sum_{i=0}^{n} 2 * O(i) = 2 * \sum_{i=0}^{n} O(i) \Rightarrow  2 * O(n^2) \Rightarrow  O(2 * n^2) \Rightarrow O(n^2)$
 
 \problem{2}
 
