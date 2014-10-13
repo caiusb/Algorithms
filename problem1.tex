@@ -133,5 +133,11 @@ Similarly, if there are more unsorted points, each one is moved into its place w
 	  \EndFunction
 	  \end{algorithmic}
 	  
+	  \paragraph{Runtime analysis}
+	  
+	  Function $intersections$ has a runtime of $2*O(n* log(n)) = O(n* log(n))$
+	  Function $sortInParallel$ is based on an $O(n* log(n))$ sorting algorithm such as merge sort.
+	  Function $merge$ has a runtime of $2*O(n) = O(n)$ since it contains two loops that iterate over all the elements of the parameter.
+	  The runtime for $mergeIntersections$ is computed below:
 	  
 \end{algorithm}
