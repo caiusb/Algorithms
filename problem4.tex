@@ -45,16 +45,17 @@ The basic recursive algorith is as follows.
 		\EndIf
 	  	\State 		
 		\State $ comment: $ $ first $ $ find $ $ out $ $ maximum $ $ SMValue $  $ of $ $ all $ $ the $ $ child $ $ nodes.$		
-		\textbf{$ for $ $ all $ $ children $ $ of $ $ root $}
-		 
+		
+		\For{$ all $ $ children $ $ of $ $ root $} 
 		\State $tempMsgSM =$\Call{SendMessageRec}{$child$,$msg$}  \Comment{O(1)}
 		\If {$ MaxChildMSgSM > tempMsgSM $ }		
 			\State $MaxChildMSgSM = tempMsgSM$
 		\EndIf
 		\State	
-		\textbf{$end for$}
 		
-		\Return $ Max(MaxChildMsgSM + 1,Number of children of root  ) $
+		\EndFor
+		
+		\Return $ Max(MaxChildMsgSM + 1, $ $ Number$ $ of $ $ children $ $ of $ $ root $ $ ) $
 			 
 	  \EndFunction
 	
@@ -75,16 +76,16 @@ In the introduction section, we said that "Intutively sending msg to node with h
 \end{figure}
 
 Taking induction on highest SM value of children of node. 
-P(K) : For any node, If the highest SM value of one of its children is K, sending message to that child minimizes the total message tranmits needed for that node. 
+P(K) : For any node, If the highest SM value of one of its children is K, sending message to that child minimizes the total message tranmits needed for that node.\\ 
 
 P(1) is true. Under the assumption ASM1, the only possible tree is as shown in figure.
 For this tree, P(1) is true as total number of messages transmits needed is 1. 
 
-Assume P(K) is true.  As shown in figure, for all child nodes of node, tranmitting message to the node with highest SM value K, the total message transmits are minimum.
+Assume P(K) is true.  As shown in figure, for all child nodes of node, tranmitting message to the node with highest SM value K, the total message transmits are minimum.\\
 
-Prove that P(K+1) is true. As shown in figure 3 below, the one of the node has highest SM value of K + 1 while other nodes has SM value of <K + 1.
+Prove that P(K+1) is true. As shown in figure 3 below, the one of the node has highest SM value of K + 1 while other nodes has SM value of <K + 1. \\
 
-Under assumption ASM1, for the subtree of node with SM value K +1, there exists a node with SM value of K. while for other nodes as b, c etc. all such noes has SM values of < K. Also P(K) is true, so total number of message transmits minimizes when message is first transmitted to node with SM value of K then nodes with SM value of < K. The message transmits at a, b, c ... require one more message tranmits than the highest SM value of their subtrees and that maximizes for node a, with SM value of K + 1. So, P(K + 1) is true. 
+Under assumption ASM1, for the subtree of node with SM value K +1, there exists a node with SM value of K. while for other nodes as b, c etc. all such noes has SM values of < K. Also P(K) is true, so total number of message transmits minimizes when message is first transmitted to node with SM value of K then nodes with SM value of < K. The message transmits at a, b, c ... require one more message tranmits than the highest SM value of their subtrees and that maximizes for node a, with SM value of K + 1. So, P(K + 1) is true. \\
 
 2) Assumption ASM2: Node with degree of node higher then SM value of any node all the time. 
 Taking induction on degree of node. The situation is depicted in figure 4. 
@@ -107,25 +108,25 @@ Adding one node to the child node, will require to transmit one more message, an
 Any node will follow in case 1 and case 2. The only issue now is the possibility of node's SM value changing based on degree of node or SM value of its subtree. (Before it was strictly one of the case). Using the same arguments as used in case 1 and case 2, and using maximum values between {degree of nodes, Highest SM  value of subtree} and handling ties by randomly choosing any of the method, our proof stil holds. 
 
 \paragraph{Dynamic programming algorithm}
-For dynamic programming algorithm, we will change the tree node as following
-TreeNode(
-List of childNodes,
-int SMValue,
-bool visited
+For dynamic programming algorithm, we will change the tree node as following \\
+TreeNode(\\
+List of childNodes,  \\
+int SMValue, \\
+bool visited \\
 )
 
 bool visited is used to prevent from visiting any node again. (Basically we are creating seperate trees)
 int SMValue holds the computed SMValue for the node. 
 
+Initialize() \\
+method initializes following values of all the nodes. \\
+SMValue = -1; \\
+visited = false;\\
 
 
+Though it may require O(n) time to initialize, Under the assumption that the above two operations are quite cheap compared to SendMessage operation, we can consider the cost of initialize() method to be constant. Even if we consider the cost O(n), this will not change the overall complexity of complete algortihm. \\
 
-
-
-
-
-
-  
+After initilization, SendMessage(root,msg) method will be called. 
 
 
 
@@ -140,36 +141,41 @@ int SMValue holds the computed SMValue for the node.
 			\State $ return$ $ 0$ 	
 		\EndIf
 	  	\State 		
-		\State $ comment: $ $ first $ $ find $ $ out $ $ maximum $ $ SMValue $  $ of $ $ all $ $ the $ $ child $ $ nodes.$		
-		\State$ for $ $ all $ $ children $ $ of $ $ root $
-		\State 
+		\State $comment: $ $ first $ $ find $ $ out $ $ maximum $ $ SMValue $  $ of $ $ all $ $ the $ $ child $ $ nodes.$		
+		
+		\For{$ all $ $ children $ $ of $ $ root $}
+		
 		\State 
 		\If{$ child.visited == true $}
 			\State do nothing
 		\Else
-				
+		\State		
 		
 		\If{$ child.SMValue !=  -1$}
+			 \State			 
 			 \If{ $ child.SMValue > MaxChildMsgSM $ }
 			 	\State $ MaxChildMsgSM = child.SMValue$
 				\State $ ChildWithMaxMsgDepth = child $
 			  \EndIf
+				\State
 	     \EndIf
 	     \If{$ child.SMValue == -1 $}
+		     	
 	     	\State $tempSMValue =  $\Call{SendMessage}{$child$,$msg$} \Comment{O(1)}
 	     	\State $child.SMValue = tempSMValue$
 	     	\If{ $ child.SMValue > MaxChildMsgSM $ }
 			 	\State $ MaxChildMsgSM = child.SMValue$
 				\State $ ChildWithMaxMsgDepth = child $
+				\State $ child.visited = true $
 			\EndIf
 		\EndIf		
 		\EndIf
-		\State $i \gets $ \Call{findIntersectionsWithSegment}{$P[1]$, $Q[1..n]$} \Comment{O(n)}
-		\State \Call{removePointAt}{{$i+1$, $Q[1..n]$}} \Comment{O(n)}
-
+			
+		\EndFor
 		
 		
-		\Return $ Max(MaxChildMsgSM + 1,Number of children of root )$
+		
+		\Return $ Max(MaxChildMsgSM + 1,$ $ Number$ $ of $ $ children $ $ of $ $ root $ $ ) $
 			 				
 		
 		
