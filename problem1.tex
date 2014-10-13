@@ -4,7 +4,7 @@
 For the $O(n^2)$ solution we compute the intersection between one segment and the rest of the segments. Then we remove that segment and recursively compute the intersections between the rest of the segments.
 
 \begin{algorithm}
-	\caption{$O(n^2)$ solution}
+	\caption{$O(n^2)$ solution for computing the number of intersections}
 	\begin{algorithmic}
 	  \Function{intersections}{$P[1..n]$ , $Q[1..n]$}
 	  	\State $i \gets $ \Call{findIntersectionsWithSegment}{$P[1]$, $Q[1..n]$} \Comment{O(n)}
@@ -76,3 +76,61 @@ Similarly, if there are more unsorted points, each one is moved into its place w
     \caption{Computing the number of intersections in an $n$ array of points, where $n-1$ points are already sorted}
     \label{fig:pointInd}
 \end{figure}
+
+\begin{algorithm}
+	\caption{$O(n * log(n))$ solution for computing the number of intersections}
+	\begin{algorithmic}
+	
+	  \Function{intersections}{$P[1..n]$ , $Q[1..n]$}
+	  	\State \Call{sortInParallel}{$P[1..n]$,$Q[1..n]$} \Comment{$O(n*log(n))$}
+		
+		\Return \Call{mergeIntersections}{$Q[1..n]$} \Comment{$O(n*log(n))$}
+	  \EndFunction
+	  
+	  \Function{sortInParallel}{{$P[1..n]$ , $Q[1..n]$}}
+	  	\LineComment{Sort P using a $O(n * log(n))$ algorithm. $Q[i]$ and $Q[j]$ are swapped whenever $P[i]$ and $P[j]$ are swapped. See Figure \ref{fig:pointSwap}.}
+	  \EndFunction
+	  
+	  \Function{mergeIntersections}{$Q[1..n]$}
+		\If {$n = 1$}
+		
+			\Return 0
+		\EndIf
+	  
+	  	\State $m \gets \lfloor n/2 \rfloor$
+		\State $i1 \gets \Call{mergeIntersections}{Q[1 .. m}$	
+		\State $i2 \gets \Call{mergeIntersections}{Q[m + 1 .. n}$
+		\State $i3 \gets \Call{merge}{Q[1 .. n], m}$ \Comment{$O(n)$}
+	 
+	 	\Return $i1 + i2 + i3$
+	  \EndFunction
+	  
+	  \Function{merge}{$Q[1..n], m$}
+	  	\State $i \gets 1$
+	  	\State $j \gets m + 1$
+		\State $k \gets 1$
+	  	\State $intersections \gets 0$
+		
+		\While{$i < m \wedge j < n$}
+			\If{$Q[i] < Q[j]$}
+				\State $B[k] \gets Q[i]$
+				\State $i \gets i + 1$ 
+				\State $k \gets k + 1$
+			\Else
+				\State $B[k] \gets Q[j]$
+				\State $intersections = intersections + (m - i) + 1$
+				\State $j \gets j + 1$ 
+				\State $k \gets k + 1$
+			\EndIf
+		
+			\For{$k \gets 1, n$}
+				\State $Q[k] \gets B[k]$
+			\EndFor
+			
+			\Return $intersections$
+		\EndWhile
+	  
+	  \EndFunction
+	  
+	  \end{algorithmic}
+\end{algorithm}
