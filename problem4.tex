@@ -5,10 +5,10 @@
 \paragraph{Introduction} \\
 \\
 Let \textbf{int  SendMessage(root,msg)} be the function that transmits messages to the tree starting at the root, the function returns least number of message transmits required to transmit message to entire tree. 
-for short, we call the return value of this function by SM. 
-so, \textbf{SM(node) = SendMessage(node,msg) = Least number of message transmits required to transmit message to the subtree starting with node}. 
+For short, we call the return value of this function by SM. 
+So, \textbf{SM(node) = SendMessage(node,msg) = Least number of message transmits required to transmit message to the subtree starting with node}. 
 
-Consider the figure \ref{fig:4a}. Consider the node a. Children of this node are : a, b, c and d. Let us assume that we precompute the values SM(a), SM(b), SM(c) and SM(d). Intutively sending msg to node with highest SM value will overall reduce the number of message transmits needed by node a. So, Node a shoudl first send the message to node d, the node with highest SM value so far. Once the message is sent to d,  both node a and node d can together transmit the message in next cycle. But in the next cycle, the two nodes a and d will act as two different tree and that way they both will send message together.
+Consider the figure \ref{fig:4a}. Consider the node a. Children of this node are : a, b, c and d. Let us assume that we precompute the values SM(a), SM(b), SM(c) and SM(d). Intuitively sending msg to node with highest SM value will overall reduce the number of message transmits needed by node a. So, Node a should first send the message to node d, the node with highest SM value so far. Once the message is sent to d,  both node a and node d can together transmit the message in next cycle. But in the next cycle, the two nodes a and d will act as two different tree and that way they both will send message together.
 
 \begin{figure}[4a]
     \centering
@@ -30,11 +30,11 @@ Also, SM value depends on two factors as shown in figure \ref{fig:4b}.
 
 
 
-1) If the SM value of any child node is greate then degree of node, the maximum SM value of the child node  + 1 is the SM value of node.
+1) If the SM value of any child node is greater then degree of node, the maximum SM value of the child node  + 1 is the SM value of node.
 
 2) If degree is greater then number of child nodes is the new SM Value of the node. 
 
-The basic recursive algorith is as follows. 
+The basic recursive algorithm is as follows. 
 
 
 \begin{algorithm}
@@ -47,18 +47,16 @@ The basic recursive algorith is as follows.
 			\State $ return$ $ 0$ 	
 		\EndIf
 	  	\State 		
-		\State $ comment: $ $ first $ $ find $ $ out $ $ maximum $ $ SMValue $  $ of $ $ all $ $ the $ $ child $ $ nodes.$		
+		\LineComment{comment: first find out maximum SMValue of all the child nodes.}		
 		
 		\For{$ all $ $ children $ $ of $ $ root $} 
 		\State $tempMsgSM =$\Call{SendMessageRec}{$child$,$msg$}  \Comment{O(1)}
 		\If {$ MaxChildMSgSM > tempMsgSM $ }		
 			\State $MaxChildMSgSM = tempMsgSM$
 		\EndIf
-		\State	
-		
 		\EndFor
 		
-		\Return $ Max(MaxChildMsgSM + 1, $ $ Number$ $ of $ $ children $ $ of $ $ root $ $ ) $
+		\Return $ Max(MaxChildMsgSM + 1, Number \, of \, children \, of \, root) $
 			 
 	  \EndFunction
 	
@@ -69,7 +67,7 @@ The basic recursive algorith is as follows.
 
 \paragraph{proof} \\
 \\
-In the introduction section, we said that "Intutively sending msg to node with highest SM value will overall reduce the number of message transmits needed by the node." If we can prove this, we have proved our basic recursive algorithm as well as the dynamic programing algorithm that will follow. The SM value of a node depends on two factores. 1) If the subtrees below the node are very deep SM value is dominated by depth of the subtrees 2) The degree of the node is very high as depicted in figure and SM value of node is dominated by the number of children below the node. 
+In the introduction section, we said that "Intuitively sending msg to node with highest SM value will overall reduce the number of message transmits needed by the node." If we can prove this, we have proved our basic recursive algorithm as well as the dynamic programing algorithm that will follow. The SM value of a node depends on two factors. 1) If the subtrees below the node are very deep SM value is dominated by depth of the subtrees 2) The degree of the node is very high as depicted in figure and SM value of node is dominated by the number of children below the node. 
 
 1) Assumption: \\ ASM1: Node with degree of node lower then the SM value of any of the node all the time.\\\ 
 
@@ -81,18 +79,18 @@ In the introduction section, we said that "Intutively sending msg to node with h
 \end{figure}
 
 Taking induction on highest SM value of children of node. 
-P(K) : For any node, If the highest SM value of one of its children is K, sending message to that child minimizes the total message tranmits needed for that node.\\ 
+P(K) : For any node, If the highest SM value of one of its children is K, sending message to that child minimizes the total message transmits needed for that node.\\ 
 
 Proof scenario for ASM1 is depicted in Figure \ref{fig:4c}
 
 P(1) is true. Under the assumption ASM1, the only possible tree is as shown in figure.
 For this tree, P(1) is true as total number of messages transmits needed is 1. 
 
-Assume P(K) is true.  As shown in figure, for all child nodes of node, tranmitting message to the node with highest SM value K, the total message transmits are minimum.\\
+Assume P(K) is true.  As shown in figure, for all child nodes of node, transmitting message to the node with highest SM value K, the total message transmits are minimum.\\
 
 Prove that P(K+1) is true. As shown in figure 3 below, the one of the node has highest SM value of K + 1 while other nodes has SM value of <K + 1. \\
 
-Under assumption ASM1, for the subtree of node with SM value K +1, there exists a node with SM value of K. while for other nodes as b, c etc. all such noes has SM values of < K. Also P(K) is true, so total number of message transmits minimizes when message is first transmitted to node with SM value of K then nodes with SM value of < K. The message transmits at a, b, c ... require one more message tranmits than the highest SM value of their subtrees and that maximizes for node a, with SM value of K + 1. So, P(K + 1) is true. \\
+Under assumption ASM1, for the subtree of node with SM value K +1, there exists a node with SM value of K. while for other nodes as b, c etc. all such noes has SM values of < K. Also P(K) is true, so total number of message transmits minimizes when message is first transmitted to node with SM value of K then nodes with SM value of < K. The message transmits at a, b, c ... require one more message transmits than the highest SM value of their subtrees and that maximizes for node a, with SM value of K + 1. So, P(K + 1) is true. \\
 
 2) Assumption ASM2: Node with degree of node higher then SM value of any node all the time. 
 Taking induction on degree of node. The situation is depicted in figure \ref{fig:4d}. 
@@ -106,14 +104,14 @@ Taking induction on degree of node. The situation is depicted in figure \ref{fig
  
 P(K): For any node, the highest degree of  its children is K, SM value of that node is K. 
 
-P(1) is trivialy true. 
+P(1) is trivially true. 
 Assume P(K) is true. If the degree of node is k, and it is more then any of the SM value, then SM value of that node is K.  
 
 Prove P(K + 1) is true. 
 Adding one node to the child node, will require to transmit one more message, and ASM2 is still true that means that we will need to transmit K + 1 messages and hence P(K + 1) is true and SM value of node is degree of node.  
 
-3) Most generic case, dropping both the assumptioin. 
-Any node will follow in case 1 and case 2. The only issue now is the possibility of node's SM value changing based on degree of node or SM value of its subtree. (Before it was strictly one of the case). Using the same arguments as used in case 1 and case 2, and using maximum values between {degree of nodes, Highest SM  value of subtree} and handling ties by randomly choosing any of the method, our proof stil holds. 
+3) Most generic case, dropping both the assumption. 
+Any node will follow in case 1 and case 2. The only issue now is the possibility of node's SM value changing based on degree of node or SM value of its subtree. (Before it was strictly one of the case). Using the same arguments as used in case 1 and case 2, and using maximum values between {degree of nodes, Highest SM  value of subtree} and handling ties by randomly choosing any of the method, our proof still holds. 
 
 \paragraph{Dynamic programming algorithm} \\
 \\
@@ -133,9 +131,9 @@ SMValue = -1; \\
 visited = false;\\
 }
 
-Though it may require O(n) time to initialize, Under the assumption that the above two operations are quite cheap compared to SendMessage operation, we can consider the cost of initialize() method to be constant. Even if we consider the cost O(n), this will not change the overall complexity of complete algortihm. \\
+Though it may require O(n) time to initialize, Under the assumption that the above two operations are quite cheap compared to SendMessage operation, we can consider the cost of initialize() method to be constant. Even if we consider the cost O(n), this will not change the overall complexity of complete algorithm. \\
 
-\textbf{After initilization, SendMessage(root,msg) method will be called. }
+\textbf{After initialization, SendMessage(root,msg) method will be called. }
 
 
 
@@ -205,10 +203,10 @@ Though it may require O(n) time to initialize, Under the assumption that the abo
 
 \paragraph{Runtime analysis}
 
-Our assumption in this analysis is that cost of sending message to a node is much higher then any other cost. Under this assumption, as shown in algorithm, every node is sent message only once. Once it is sent message, it is marked as visited and essentially we are detaching that node from its parent node for further manipulation. so every node will recieve message once from its parent. so time complexity of this algoritm is O(n). 
+Our assumption in this analysis is that cost of sending message to a node is much higher then any other cost. Under this assumption, as shown in algorithm, every node is sent message only once. Once it is sent message, it is marked as visited and essentially we are detaching that node from its parent node for further manipulation. so every node will receive message once from its parent. so time complexity of this algorithm is O(n). 
 
 We have added two new data to each node. Added SMValue field to preserve the SMValue calculated for each node. Added visited boolean value to detach a node from its parent node from further consideration, once it is already sent a message. so we have added 2 extra fields for each node. So, space complexity of this algorithm is 2n and hence O(n).  
 
-In case findning number of children nodes is costly operation also, then we can compute it within algorithm by adding a new field, NumberofChildren to each node of tree and in that case, algorithm's space complexity will be in terms of 3n but it will still reamin O(n)
+In case finding number of children nodes is costly operation also, then we can compute it within algorithm by adding a new field, NumberofChildren to each node of tree and in that case, algorithm's space complexity will be in terms of 3n but it will still remain O(n)
 
 
