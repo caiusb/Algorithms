@@ -7,21 +7,23 @@ Let int  SendMessage(root,msg) be the function that transmits messages to the tr
 for short, we call the return value of this function by SM. 
 so, SM(node) = SendMessage(node,msg) = Least number of message transmits required to transmit message to the subtree starting with node. 
 
-Consider the figure 1. Consider the node a. Children of this node are : a, b, c and d. Let us assume that we precompute the values SM(a), SM(b), SM(c) and SM(d). Intutively sending msg to node with highest SM value will overall reduce the number of message transmits needed by node a. So, Node a shoudl first send the message to node d, the node with highest SM value so far. Once the message is sent to d,  both node a and node d can together transmit the message in next cycle. But in the next cycle, the two nodes a and d will act as two different tree and that way they both will send message together.
+Consider the figure \ref{fig:4a}. Consider the node a. Children of this node are : a, b, c and d. Let us assume that we precompute the values SM(a), SM(b), SM(c) and SM(d). Intutively sending msg to node with highest SM value will overall reduce the number of message transmits needed by node a. So, Node a shoudl first send the message to node d, the node with highest SM value so far. Once the message is sent to d,  both node a and node d can together transmit the message in next cycle. But in the next cycle, the two nodes a and d will act as two different tree and that way they both will send message together.
 
 \begin{figure}[4a]
     \centering
     \includegraphics[scale=0.10]{4a}
     \caption{Root should first send message to node d}
+    \label{fig:4a}
 \end{figure}
 
 
-Also, SM value depends on two factors as shown in figure 2. 
+Also, SM value depends on two factors as shown in figure \ref{fig:4b}. 
 
 \begin{figure}[4b]
     \centering
     \includegraphics[scale=0.10]{4b}
     \caption{How the SM value of node can depend on two factors}
+    \label{fig:4b}
 \end{figure}
 
 
@@ -73,10 +75,13 @@ In the introduction section, we said that "Intutively sending msg to node with h
     \centering
     \includegraphics[scale=0.10]{4c}
     \caption{Proof with ASM 1}
+    \label{fig:4c}
 \end{figure}
 
 Taking induction on highest SM value of children of node. 
 P(K) : For any node, If the highest SM value of one of its children is K, sending message to that child minimizes the total message tranmits needed for that node.\\ 
+
+Proof scenario for ASM1 is depicted in Figure \ref{fig:4c}
 
 P(1) is true. Under the assumption ASM1, the only possible tree is as shown in figure.
 For this tree, P(1) is true as total number of messages transmits needed is 1. 
@@ -88,12 +93,13 @@ Prove that P(K+1) is true. As shown in figure 3 below, the one of the node has h
 Under assumption ASM1, for the subtree of node with SM value K +1, there exists a node with SM value of K. while for other nodes as b, c etc. all such noes has SM values of < K. Also P(K) is true, so total number of message transmits minimizes when message is first transmitted to node with SM value of K then nodes with SM value of < K. The message transmits at a, b, c ... require one more message tranmits than the highest SM value of their subtrees and that maximizes for node a, with SM value of K + 1. So, P(K + 1) is true. \\
 
 2) Assumption ASM2: Node with degree of node higher then SM value of any node all the time. 
-Taking induction on degree of node. The situation is depicted in figure 4. 
+Taking induction on degree of node. The situation is depicted in figure \ref{fig:4d}. 
 
 \begin{figure}[4d]
     \centering
     \includegraphics[scale=0.10]{4d}
     \caption{Proof with ASM2}
+    \label{fig:4d}
 \end{figure}
  
 P(K): For any node, the highest degree of  its children is K, SM value of that node is K. 
