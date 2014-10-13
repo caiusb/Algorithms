@@ -1,0 +1,73 @@
+%!TEX root = hw1.tex
+
+\problem{2}
+
+For the simple, unburned problem, we are using algorithm~\ref{algo:pancakes-simple}.
+The basic function of the algorithm is as follows.
+In line 2, we are looking for the largest pancake in the stack (line~\ref{line:pancake:find}).
+We then flip all the pancakes, starting with the largest one (line~\ref{line:pancake:flip-large}).
+This puts that largest pancake on the top.
+We then flip the whole stack, which puts the large pancake on the bottom (line~\ref{line:pancake:flip-all}).
+We then do this recursively, for the remaining pancakes, that are on top of the largest one (line 4).
+
+\begin{algorithm}
+	\caption{The solution for the simple, unburned, problem}
+	\begin{algorithmic}[1]
+	  \Function{SortPancakes}{$P[1..n]$}
+	  	\If{$n \leq 1$}
+			\State \Return
+		\EndIf
+	  	\State $p \gets$ \Call{FindLargestPancake}{$P[1..n]$} \Comment{$O(n)$} \label{line:pancake:find}
+		\State \Call{FlipPancakes}{$P[1..n]$,$p$} \Comment{$O(\frac{n}{2})$} \label{line:pancake:flip-large}
+		\State \Call{FlipPancakes}{$P[1..n]$,$0$} \Comment{$O(\frac{n}{2})$} \label{line:pancake:flip-all}
+		\State \Call{SortPancakes}{$P[2..n]$}
+	  \EndFunction
+	\end{algorithmic}
+	\label{algo:pancakes-simple}
+\end{algorithm}
+
+\paragraph{Runtime analysis}
+The function $SortPancakes$ is called once for every pancake in the stack.
+This gives us a time complexity of $O(n)$.
+Inside each call, we to find the largest pancake, which is of time complexity $O(n)$.
+Therfore, the overall complexity is $O(n^{2})$.
+
+\paragraph{Maximum number of flips}
+For each recursive call, we do 2 flips.
+For the last pancake, we don't do any flips, since it's already the smallest and in place.
+Therefore, we have a total of $2n-1$ flips.
+
+For the case when we have to deal with burned pancakes, we are modifying algorithm~\ref{algo:pancakes-simple} by adding on more conditional at line~\ref{line:pancake:check-burned}.
+The results is algorithm~\ref{algo:pancakes-burned}.
+
+\begin{algorithm}
+	\caption{The solution for the simple, unburned, problem}
+	\begin{algorithmic}[1]
+	  \Function{SortPancakes}{$P[1..n]$} 
+	  	\If{$n \leq 1$}
+			\If{\Call{IsFacingUp}{$p$}} \Comment{$O(1)$} \label{}
+				\State \Call{FlipPancakes}{$P[1..n]$,$p$} \label{line:pancake:flip-last-pancake}
+			\EndIf
+			\State \Return
+		\EndIf
+	  	\State $p \gets$ \Call{FindLargestPancake}{$P[1..n]$} \Comment{$O(n)$} \label{line:pancake:find}
+		\State \Call{FlipPancakes}{$P[1..n]$,$p$} \Comment{$O(\frac{n}{2})$} \label{line:pancake:flip-large}
+		\If{\Call{IsFacingUp}{$p$}} \label{line:pancake:check-burned} \Comment{$O(1)$} \label{}
+			\State \Call{FlipPancakes}{$P[1..m]$,$m$}  \label{line:pancake:flip-burned}
+		\EndIf
+		\State \Call{FlipPancakes}{$P[1..n]$,$0$} \Comment{$O(\frac{n}{2})$} \label{line:pancake:flip-all}
+		\State \Call{SortPancakes}{$P[2..n]$}
+	  \EndFunction
+	\end{algorithmic}
+	\label{algo:pancakes-burned}
+\end{algorithm}
+
+\paragraph{Runtime analysis}
+The introduced conditional on line~\ref{line:pancake:check-burned} can be executed in constant time.
+Therefore, the time complexity of the algorithm is unchanged at $O(n)$.
+
+\paragraph{Maximum number of flips}
+To guarantee the orientation, we might need to flip the pancake one extra time, as shown in line~\ref{line:pancake:flip-burned}.
+Therefore, the maximum number of flips becomes $3n-2$.
+Notice that while the last pancake is guaranteed to be in the correct position, it's orientation might be incorrect.
+Hence, we might need to do one flip to orient it the correct way, as shown in line~\ref{line:pancake:flip-last-pancake}.
