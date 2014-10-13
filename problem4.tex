@@ -2,7 +2,8 @@
 \problem{4}
 %Arpit in middle of problem 4. 
 %Should be done in an hour. 
-\paragraph{Introduction)} 
+\paragraph{Introduction} \\
+\\
 Let int  SendMessage(root,msg) be the function that transmits messages to the tree starting at the root, the function returns least number of message transmits required to transmit message to entire tree. 
 for short, we call the return value of this function by SM. 
 so, SM(node) = SendMessage(node,msg) = Least number of message transmits required to transmit message to the subtree starting with node. 
@@ -66,7 +67,8 @@ The basic recursive algorith is as follows.
 \end{algorithm}
 
 
-\paragraph{proof}
+\paragraph{proof} \\
+\\
 In the introduction section, we said that "Intutively sending msg to node with highest SM value will overall reduce the number of message transmits needed by the node." If we can prove this, we have proved our basic recursive algorithm as well as the dynamic programing algorithm that will follow. The SM value of a node depends on two factores. 1) If the subtrees below the node are very deep SM value is dominated by depth of the subtrees 2) The degree of the node is very high as depicted in figure and SM value of node is dominated by the number of children below the node. 
 
 1) Assumption: \\ ASM1: Node with degree of node lower then the SM value of any of the node all the time.\\\ 
@@ -113,26 +115,27 @@ Adding one node to the child node, will require to transmit one more message, an
 3) Most generic case, dropping both the assumptioin. 
 Any node will follow in case 1 and case 2. The only issue now is the possibility of node's SM value changing based on degree of node or SM value of its subtree. (Before it was strictly one of the case). Using the same arguments as used in case 1 and case 2, and using maximum values between {degree of nodes, Highest SM  value of subtree} and handling ties by randomly choosing any of the method, our proof stil holds. 
 
-\paragraph{Dynamic programming algorithm}
+\paragraph{Dynamic programming algorithm} \\
+\\
 For dynamic programming algorithm, we will change the tree node as following \\
-TreeNode(\\
+\textbf{TreeNode(\\
 List of childNodes,  \\
 int SMValue, \\
 bool visited \\
-)
+)}
 
 bool visited is used to prevent from visiting any node again. (Basically we are creating seperate trees)
 int SMValue holds the computed SMValue for the node. 
 
-Initialize() \\
+\textbf{Initialize() \\
 method initializes following values of all the nodes. \\
 SMValue = -1; \\
 visited = false;\\
-
+}
 
 Though it may require O(n) time to initialize, Under the assumption that the above two operations are quite cheap compared to SendMessage operation, we can consider the cost of initialize() method to be constant. Even if we consider the cost O(n), this will not change the overall complexity of complete algortihm. \\
 
-After initilization, SendMessage(root,msg) method will be called. 
+\textbf{After initilization, SendMessage(root,msg) method will be called. }
 
 
 
