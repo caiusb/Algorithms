@@ -57,6 +57,6 @@ The fact that the length of a longest palindromic subsequence is less than or eq
 
 The algorithm creates a dynamic programming table of the solutions for smaller substrings of $x$ and $y$. Calculating the value for each step takes constant time, and since there are $m$ rows and $n$ columns the algorithm takes $O(n*m)$ time to complete. Creating the reverse of the string will take $O(n)$ time and the reverse will have equal length to the original string, so overall the longest palindromic subsequence algorithm takes $O(n) + O(n^2) = O(n^2)$ time to complete.
 
-\problem{4}
+\input{problem4}
 
 \end{document}
