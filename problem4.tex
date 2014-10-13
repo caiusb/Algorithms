@@ -143,6 +143,7 @@ After initilization, SendMessage(root,msg) method will be called.
 	  \Function{SendMessage}{$root$ , $msg$}
 		\State $ MaxChildMsgSM = 0 $
 		\State $ ChildWithMaxMsgDepth = null $
+		
 		\If{$ root  == null $}
 			\State $ return$ $ 0$ 	
 		\EndIf
@@ -157,26 +158,34 @@ After initilization, SendMessage(root,msg) method will be called.
 		\Else
 		\State		
 		
-		\If{$ child.SMValue !=  -1$}
+		\If{$ child.SMValue $ $ <> $ $  -1$}
 			 \State			 
 			 \If{ $ child.SMValue > MaxChildMsgSM $ }
+				\State			 	
 			 	\State $ MaxChildMsgSM = child.SMValue$
 				\State $ ChildWithMaxMsgDepth = child $
 			  \EndIf
 				\State
-	     \EndIf
-	     \If{$ child.SMValue == -1 $}
-		     	
+	     \Else
+	     \State
+	     \If{$ child.SMValue $ $ == $ $ -1 $}
+		    \State 	
 	     	\State $tempSMValue =  $\Call{SendMessage}{$child$,$msg$} \Comment{O(1)}
 	     	\State $child.SMValue = tempSMValue$
 	     	\If{ $ child.SMValue > MaxChildMsgSM $ }
+				\State			 	
 			 	\State $ MaxChildMsgSM = child.SMValue$
 				\State $ ChildWithMaxMsgDepth = child $
 				\State $ child.visited = true $
+				\State
 			\EndIf
+			\State
 		\EndIf		
+		\State
 		\EndIf
-			
+		\State
+		\EndIf
+		\State	
 		\EndFor
 		
 		
