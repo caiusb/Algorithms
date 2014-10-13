@@ -31,7 +31,7 @@ For the $O(n^2)$ solution we compute the intersection between one segment and th
 \end{algorithm}
 
 \paragraph{Runtime analysis}
-Functions $findIntersectionWithSegment$ and $removePoint$ have a runtime of $O(n)$ since in the worst case scenario they traverse over all all the points. The runtime of $intersections$ is analyzed below:
+Functions $findIntersectionWithSegment$ and $removePoint$ have a runtime of $O(n)$ since in the worst case scenario they traverse over all all the points. The runtime of function $intersections$ is analyzed below:
 
 \clearpage
 $I(n) =$ worst case runtime of function $intersections$
@@ -45,3 +45,34 @@ $I(n) = I(n - 1) + 2 * O(n)$
 
 $I(n) = \sum_{i=0}^{n} 2 * O(i) = 2 * \sum_{i=0}^{n} O(i) \Rightarrow  2 * O(n^2) \Rightarrow  O(2 * n^2) \Rightarrow O(n^2)$
 
+
+\paragraph{b)} For the $O(n*log(n))$ solution we sort the P array of points and perform the same swaps within Q that are required to sort P.
+This operation preserves the number of intersections from the initial arrays.
+Figure \ref{fig:pointSwap} shows that, in the base case when there are either two parallel segments or two intersecting segments, the number of intersections is preserved when the order of the points is swapped.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{1b-intersections}
+    \caption{The number of intersections is preserved when swapping points}
+    \label{fig:pointSwap}
+\end{figure}
+
+Having P sorted, we can now compute the number of intersections by looking only into the Q array. We achieve this via a modified merge sort, the number of intersection for Q being: \\
+
+$intersections(Q[1..n]) = intersections(Q[1 .. \lfloor n/2 \rfloor]) + intersections(Q[\lceil n/2 \rceil .. n]) + merge(Q[1 .. \lfloor n/2 \rfloor], Q[\lceil n/2 \rceil .. n])$ \\
+
+The $merge$ function, just like in the traditional merge sort, merges the two sorted arrays into a sorted array. 
+Additionally, it computes the number of intersections between the two arrays: whenever a number from the rightmost array is copied into the merged array, it generates as many intersections as numbers are left in the leftmost array.
+
+Figure \ref{fig:pointInd} illustrates how the merging is done, assuming recursion solved the smaller cases. 
+The figure shows the case of an $n$ array of points where $n-1$ points have been sorted.
+One segment, $j$, such that $i \leq j < k$ remains unsorted.
+in order to put $j$ into its place we need to swap it over the interval $[k .. n]$ of points, thus generating $m = n - j$ intersections.
+Similarly, if there are more unsorted points, each one is moved into its place while generating as many intersections as many points it crosses.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{1b-intersections-ind}
+    \caption{Computing the number of intersections in an $n$ array of points, where $n-1$ points are already sorted}
+    \label{fig:pointInd}
+\end{figure}
