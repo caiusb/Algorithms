@@ -61,13 +61,13 @@ Having P sorted, we can now compute the number of intersections by looking only 
 
 $intersections(Q[1..n]) = intersections(Q[1 .. \lfloor n/2 \rfloor]) + intersections(Q[\lceil n/2 \rceil .. n]) + merge(Q[1 .. \lfloor n/2 \rfloor], Q[\lceil n/2 \rceil .. n])$ \\
 
-The $merge$ function, just like in the traditional merge sort, merges the two sorted arrays into a sorted array. 
+The $merge$ function, just like in the traditional merge sort, merges the two sorted arrays into one sorted array. 
 Additionally, it computes the number of intersections between the two arrays: whenever a number from the rightmost array is copied into the merged array, it generates as many intersections as numbers are left in the leftmost array.
 
 Figure \ref{fig:pointInd} illustrates how the merging is done, assuming recursion solved the smaller cases. 
 The figure shows the case of an $n$ array of points where $n-1$ points have been sorted.
 One segment, $j$, such that $i \leq j < k$ remains unsorted.
-in order to put $j$ into its place we need to swap it over the interval $[k .. n]$ of points, thus generating $m = n - j$ intersections.
+In order to put $j$ into its place we need to swap it over the interval $[k .. n]$ of points, thus generating $m = n - k + 1$ intersections.
 Similarly, if there are more unsorted points, each one is moved into its place while generating as many intersections as many points it crosses.
 
 \begin{figure}[H]
@@ -151,7 +151,7 @@ $I(n) = 2 * I(n/2) + O(n)$
     \includegraphics[scale=0.4]{1b-runtime}
 \end{figure}
 
-$I(n) = \sum_{i=1}^{L} 2^i * O(n/2^i) = \sum_{i=1}^{L} O(n) = L * O(n)$
+$I(n) = \sum_{i=1}^{L} 2^i * O(n/2^i) = \sum_{i=1}^{L} O(n) \Rightarrow L * O(n)$
 
 L is the height of the tree, $log(n)$
 
