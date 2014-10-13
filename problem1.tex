@@ -31,9 +31,8 @@ For the $O(n^2)$ solution we compute the intersection between one segment and th
 \end{algorithm}
 
 \paragraph{Runtime analysis}
-Functions $findIntersectionWithSegment$ and $removePoint$ have a runtime of $O(n)$ since in the worst case scenario they traverse over all all the points. The runtime of function $intersections$ is analyzed below:
+Functions $findIntersectionWithSegment$ and $removePoint$ have a runtime of $O(n)$ since in the worst case scenario they traverse over all all the points. The runtime of function $intersections$ is analyzed below: \\
 
-\clearpage
 $I(n) =$ worst case runtime of function $intersections$
 
 $I(n) = I(n - 1) + 2 * O(n)$
@@ -50,9 +49,9 @@ $I(n) = \sum_{i=0}^{n} 2 * O(i) = 2 * \sum_{i=0}^{n} O(i) \Rightarrow  2 * O(n^2
 This operation preserves the number of intersections from the initial arrays.
 Figure \ref{fig:pointSwap} shows that, in the base case when there are either two parallel segments or two intersecting segments, the number of intersections is preserved when the order of the points is swapped.
 
-\begin{figure}[H]
+\begin{figure}
     \centering
-    \includegraphics[scale=0.4]{1b-intersections}
+    \includegraphics[scale=0.35]{1b-intersections}
     \caption{The number of intersections is preserved when swapping points}
     \label{fig:pointSwap}
 \end{figure}
@@ -72,7 +71,7 @@ Similarly, if there are more unsorted points, each one is moved into its place w
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.4]{1b-intersections-ind}
+    \includegraphics[scale=0.35]{1b-intersections-ind}
     \caption{Computing the number of intersections in an $n$ array of points, where $n-1$ points are already sorted}
     \label{fig:pointInd}
 \end{figure}
