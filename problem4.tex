@@ -4,9 +4,9 @@
 %Should be done in an hour. 
 \paragraph{Introduction} \\
 \\
-Let int  SendMessage(root,msg) be the function that transmits messages to the tree starting at the root, the function returns least number of message transmits required to transmit message to entire tree. 
+Let \textbf{int  SendMessage(root,msg)} be the function that transmits messages to the tree starting at the root, the function returns least number of message transmits required to transmit message to entire tree. 
 for short, we call the return value of this function by SM. 
-so, SM(node) = SendMessage(node,msg) = Least number of message transmits required to transmit message to the subtree starting with node. 
+so, \textbf{SM(node) = SendMessage(node,msg) = Least number of message transmits required to transmit message to the subtree starting with node}. 
 
 Consider the figure \ref{fig:4a}. Consider the node a. Children of this node are : a, b, c and d. Let us assume that we precompute the values SM(a), SM(b), SM(c) and SM(d). Intutively sending msg to node with highest SM value will overall reduce the number of message transmits needed by node a. So, Node a shoudl first send the message to node d, the node with highest SM value so far. Once the message is sent to d,  both node a and node d can together transmit the message in next cycle. But in the next cycle, the two nodes a and d will act as two different tree and that way they both will send message together.
 
