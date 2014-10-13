@@ -40,7 +40,7 @@ $I(n) = I(n - 1) + 2 * O(n)$
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{1a)}
+    \includegraphics[scale=0.4]{1a)}
 \end{figure}
 
 $I(n) = \sum_{i=0}^{n} 2 * O(i) = 2 * \sum_{i=0}^{n} O(i) \Rightarrow  2 * O(n^2) \Rightarrow  O(2 * n^2) \Rightarrow O(n^2)$
@@ -79,8 +79,8 @@ Similarly, if there are more unsorted points, each one is moved into its place w
 
 \begin{algorithm} [H]
 	\caption{$O(n * log(n))$ solution for computing the number of intersections}
-	\begin{algorithmic}
 	
+	\begin{algorithmic}
 	  \Function{intersections}{$P[1..n]$ , $Q[1..n]$}
 	  	\State \Call{sortInParallel}{$P[1..n]$,$Q[1..n]$} \Comment{$O(n*log(n))$}
 		
@@ -127,17 +127,33 @@ Similarly, if there are more unsorted points, each one is moved into its place w
 				\State $Q[k] \gets B[k]$
 			\EndFor
 			
-			\Return $intersections$
 		\EndWhile
+		
+	\Return $intersections$
+	\EndFunction
 	  
-	  \EndFunction
-	  \end{algorithmic}
-	  
-	  \paragraph{Runtime analysis}
-	  
-	  Function $intersections$ has a runtime of $2*O(n* log(n)) = O(n* log(n))$
-	  Function $sortInParallel$ is based on an $O(n* log(n))$ sorting algorithm such as merge sort.
-	  Function $merge$ has a runtime of $2*O(n) = O(n)$ since it contains two loops that iterate over all the elements of the parameter.
-	  The runtime for $mergeIntersections$ is computed below:
-	  
+	\end{algorithmic}
 \end{algorithm}
+
+\paragraph{Runtime analysis}
+	  
+Function $intersections$ has a runtime of $2*O(n* log(n)) = O(n* log(n))$
+Function $sortInParallel$ is based on an $O(n* log(n))$ sorting algorithm such as merge sort.
+Function $merge$ has a runtime of $2*O(n) = O(n)$ since it contains two loops that iterate over all the elements of the parameter.
+The runtime for $mergeIntersections$ is analyzed below: \\
+
+$I(n) =$ worst case runtime of function $mergeIntersections$
+
+$I(n) = 2 * I(n/2) + O(n)$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{1b-runtime}
+\end{figure}
+
+$I(n) = \sum_{i=1}^{L} 2^i * O(n/2^i) = \sum_{i=1}^{L} O(n) = L * O(n)$
+
+L is the height of the tree, $log(n)$
+
+$I(n) = log(n) * O(n) \Rightarrow O(n*log(n))$
+
