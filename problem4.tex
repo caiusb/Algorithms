@@ -121,16 +121,16 @@ For dynamic programming algorithm, we will change the tree node as following \\
 \textbf{TreeNode(\\
 List of childNodes,  \\
 int SMValue, \\
-bool visited \\
+int NumberOfChildNodes : optinal, not used in algorithm, but mentioned in run time analysis \\
 )}
 
-bool visited is used to prevent from visiting any node again. (Basically we are creating seperate trees)
+
 int SMValue holds the computed SMValue for the node. 
 
 \textbf{Initialize() \\
 method initializes following values of all the nodes. \\
-SMValue = -1; \\
-visited = false;\\
+SMValue = -1\\
+\\
 }
 
 Though it may require O(n) time to initialize, Under the assumption that the above two operations are quite cheap compared to SendMessage operation, we can consider the cost of initialize() method to be constant. Even if we consider the cost O(n), this will not change the overall complexity of complete algortihm. \\
@@ -145,7 +145,7 @@ Though it may require O(n) time to initialize, Under the assumption that the abo
 	\begin{algorithmic}
 	  \Function{SendMessage}{$root$ , $msg$}
 		\State $ MaxChildMsgSM = 0 $
-		\State $ ChildWithMaxMsgDepth = null $
+		
 		
 		\If{$ root  == null $}
 			\State $ return$ $ 0$ 	
@@ -156,9 +156,7 @@ Though it may require O(n) time to initialize, Under the assumption that the abo
 		\For{$ all $ $ children $ $ of $ $ root $}
 		
 		\State 
-		\If{$ child.visited == true $}
-			\State do nothing
-		\Else
+		
 		\State		
 		
 		\If{$ child.SMValue $ $ <> $ $  -1$}
@@ -166,7 +164,7 @@ Though it may require O(n) time to initialize, Under the assumption that the abo
 			 \If{ $ child.SMValue > MaxChildMsgSM $ }
 				\State			 	
 			 	\State $ MaxChildMsgSM = child.SMValue$
-				\State $ ChildWithMaxMsgDepth = child $
+				
 			  \EndIf
 				\State
 	     \Else
@@ -178,8 +176,8 @@ Though it may require O(n) time to initialize, Under the assumption that the abo
 	     	\If{ $ child.SMValue > MaxChildMsgSM $ }
 				\State			 	
 			 	\State $ MaxChildMsgSM = child.SMValue$
-				\State $ ChildWithMaxMsgDepth = child $
-				\State $ child.visited = true $
+				
+				
 				\State
 			\EndIf
 			\State
@@ -187,8 +185,7 @@ Though it may require O(n) time to initialize, Under the assumption that the abo
 		\State
 		\EndIf
 		\State
-		\EndIf
-		\State	
+			
 		\EndFor
 		
 		
@@ -205,10 +202,10 @@ Though it may require O(n) time to initialize, Under the assumption that the abo
 
 \paragraph{Runtime analysis}
 
-Our assumption in this analysis is that cost of sending message to a node is much higher then any other cost. Under this assumption, as shown in algorithm, every node is sent message only once. Once it is sent message, it is marked as visited and essentially we are detaching that node from its parent node for further manipulation. so every node will recieve message once from its parent. so time complexity of this algoritm is O(n). 
+Our assumption in this analysis is that cost of sending message to a node is much higher then any other cost. Under this assumption, as shown in algorithm, every node is sent message only once. Once it is sent message, it is marked as visited (as its SMValue is not -1 now) and essentially we are detaching that node from its parent node for further manipulation. so every node will recieve message once from its parent. so time complexity of this algoritm is O(n). 
 
-We have added two new data to each node. Added SMValue field to preserve the SMValue calculated for each node. Added visited boolean value to detach a node from its parent node from further consideration, once it is already sent a message. so we have added 2 extra fields for each node. So, space complexity of this algorithm is 2n and hence O(n).  
+We have added one new data to each node. Added SMValue field to preserve the SMValue calculated for each node. So we have added 1 extra fields for each node. So, space complexity of this algorithm is n and hence O(n).  
 
-In case findning number of children nodes is costly operation also, then we can compute it within algorithm by adding a new field, NumberofChildren to each node of tree and in that case, algorithm's space complexity will be in terms of 3n but it will still reamin O(n)
+In case findning number of children nodes is costly operation also, then we can compute it within algorithm by adding a new field, NumberofChildren to each node of tree and in that case and counting it within for loop of algorithm, algorithm's space complexity will be in terms of 2n but it will still reamin O(n) while time complexity will still remain O(n) as every node is counted once while it was being visited. 
 
 
