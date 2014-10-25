@@ -15,12 +15,18 @@ Given a set $C$ of $n$ circles in the plane, each specified by its radius $r$ an
 			\State $L \gets$ $C$ sorted by highest angle
 			\State $m \gets 0$
 			\While{$L$ is not empty}
-				\State Shoot ray $R_{m}$ at highest angle of first circle in $L$
+				\State Create ray $R_{m}$ at highest angle of first circle in $L$
 				\State Delete from $L$ all circles intersected by $R_{m}$
 				\State $m \gets m+1$
 			\EndWhile
-			\Return $m$
+			\State \Return $m$
 		\end{algorithmic}
 	\end{algorithm}
+	
+	The fact that this algorithm defines a set of rays that intersect all circles in $C$ is clear, as we only remove circles that intersect with a ray and we remove all circles. 
+	
+	To show that this is an optimal solution, assume that there is an optimal solution that does not fire a ray at the highest angle of the first circle in our sorted list $L$. Obviously, the first ray in the solution will have to be in the first circle's angular range, because otherwise that circle will not be intersected by any ray. The correctness of the solution will not be changed by moving the first ray to the highest angle of the first circle. This is because such an alteration will not move the ray out of the angular range of any circle, as the first circle has the lowest highest angle of any circle in $L$. 
+	
+	After the removal of any circles intersected by the first ray from $L$, the situation is remains the same - the optimality of a solution would not be changed by moving the next ray to the highest angle of the first circle in $L$. Therefore, by induction, Algorithm~\ref{rays-circles1} is optimal.
 	\item
 \end{enumerate}
