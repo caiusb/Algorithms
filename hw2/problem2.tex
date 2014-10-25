@@ -1,2 +1,26 @@
 %!TEX root = main.tex
 \problem{2}
+Given a set $C$ of $n$ circles in the plane, each specified by its radius $r$ and the coordinates of its center $(x, y)$, we set out to find a minimum set of rays from the origin $(0, 0)$ that will intersect every circle.
+
+\begin{enumerate}[(a)]
+	\item We define a circle's \emph{angular range} to be the angles at which a ray fired from the origin will intersect that circle. We define a circle's \emph{highest angle} as the highest angle in its angular range (with respect to a ray that we define as having angle 0, with angles increasing in a counterclockwise direction).
+	
+	Given the condition that there exists a ray from the origin which does not intersect any circles in $C$, we can define the following algorithm.
+	
+	\begin{algorithm}
+		\caption{}
+		\label{rays-circles1}
+		\begin{algorithmic}
+			\State Set a ray from (0, 0) which does not intersect any circles in $C$ to be angle 0.
+			\State $L \gets$ $C$ sorted by highest angle
+			\State $m \gets 0$
+			\While{$L$ is not empty}
+				\State Shoot ray $R_{m}$ at highest angle of first circle in $L$
+				\State Delete from $L$ all circles intersected by $R_{m}$
+				\State $m \gets m+1$
+			\EndWhile
+			\Return $m$
+		\end{algorithmic}
+	\end{algorithm}
+	\item
+\end{enumerate}
