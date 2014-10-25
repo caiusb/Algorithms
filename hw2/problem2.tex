@@ -28,5 +28,32 @@ Given a set $C$ of $n$ circles in the plane, each specified by its radius $r$ an
 	To show that this is an optimal solution, assume that there is an optimal solution that does not fire a ray at the highest angle of the first circle in our sorted list $L$. Obviously, the first ray in the solution will have to be in the first circle's angular range, because otherwise that circle will not be intersected by any ray. The correctness of the solution will not be changed by moving the first ray to the highest angle of the first circle. This is because such an alteration will not move the ray out of the angular range of any circle, as the first circle has the lowest highest angle of any circle in $L$. 
 	
 	After the removal of any circles intersected by the first ray from $L$, the situation is remains the same - the optimality of a solution would not be changed by moving the next ray to the highest angle of the first circle in $L$. Therefore, by induction, Algorithm~\ref{rays-circles1} is optimal.
-	\item
+	
+	Algorithm~\ref{rays-circles1} starts with identifying a ray that does not intersect any circles in $C$. This is $O(n \log n)$ as we may have to sort the circles by angular range to identify an angle that is not in any circle's angular range. Then, there is an $O(n \log n)$ sort of $C$ (we may be able to skip this step if we remember the sorting from the previous step). Finally, we create rays and delete circles; this will be $O(n)$ because we need to consider every circle in $C$.
+	
+	Therefore, overall Algorithm~\ref{rays-circles1} is $O(n \log n) + O(n) = O(n \log n)$.
+	
+	\item If we remove the requirement that there exists a ray that does not intersect any circles in $C$, we can use a modification of Algorithm~\ref{rays-circles1} to find a greedy algorithm that returns a solution within 1 of optimal. 
+	
+	\begin{algorithm}
+		\caption{}
+		\label{rays-circles2}
+		\begin{algorithmic}
+			\State Randomly create a ray $R_{0}$ and define that ray to be angle 0.
+			\State $L \gets$ $C$ sorted by highest angle
+			\State Delete from $L$ all circles intersected by $R_{0}$
+			\State $m \gets 1$
+			\While{$L$ is not empty}
+				\State Create ray $R_{m}$ at highest angle of first circle in $L$
+				\State Delete from $L$ all circles intersected by $R_{m}$
+				\State $m \gets m+1$
+			\EndWhile
+			\State \Return $m$
+		\end{algorithmic}
+	\end{algorithm}
+	
+	If the random ray is part of an optimal solution, then by the analysis in part (a) Algorithm~\ref{rays-circles2} will return an optimal solution. If the random ray is not part of an optimal solution, then (again by the analysis in part (a)) Algorithm~\ref{rays-circles2} will return an optimal solution over the remaining circles. This optimal solution of a reduced problem will not have a size greater than an optimal solution of the overall problem, so Algorithm~\ref{rays-circles2} will return a solution with size at worst 1 ray more than the optimal solution.
+	
+	The time-complexity analysis of Algorithm~\ref{rays-circles2} is the same as that of Algorithm~\ref{rays-circles1}, except that we need not calculate a suitable angle 0 ray, as any will do. This will not affect the overall running time, because the sorting step will still take $O(n \log n)$ time. Therefore, Algorithm~\ref{rays-circles2} is $O(n \log n)$.
+	
 \end{enumerate}
