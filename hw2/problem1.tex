@@ -42,7 +42,7 @@ The general case recurrence is similar to the Floyd - Warshall algorithm with th
 	  \Function{regular}{$R$, $i$, $j$}
 	  	\For{$j \gets 1, |Q|$}
 			\For{$j \gets 1, |Q|$}
-				\State $R[i,j] \gets \oslash$
+				\State $R[i,j] \gets \oslash$ \Comment{empty language}
 				\If{i = j}
 					\State $R[i,j]= a | e \text{ where } \delta(Q_{i}, a) = Q_{i} $
 				\Else
