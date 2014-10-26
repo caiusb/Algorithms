@@ -17,19 +17,19 @@ We used Kleene's algorithm \footnote{\url{wikipedia.org/wiki/Kleene's_algorithm}
 \]
 
 Where e is the empty string.
-Because the automata is deterministic there can be only one transition in the case when $i = j$.
+Because the automata is deterministic there can be only one transition from one state to itself in the case where $i = j$.
 
 \item 
 
 $R(i,j,k)	= R(i,j,k-1) | R(i, k, k - 1)R(k,k,k-1)^{*}R(k,i,k-1)$
 
+For each triple of states $Q_{i}$, $Q_{j}$ and $Q_{k}$ the accepting regular expression is the concatenation between the regular expresion from $Q_{i}$ to $Q_{j}$ that goes through $Q_{i}$, $Q_{j}$ ... $Q_{k-1}$ but not $Q_{k}$ and the regular expression from $Q_{i}$ to $Q_{j}$ that goes through $Q_{1}$,$Q_{2}$ ... $Q_{k}$
+
 The general case recurrence is similar to the Floyd - Warshall algorithm with the following differences:
 
-%TODO img
-
 \begin{itemize}
-	\item instead of the minimum between the two variants, the algorithm concatenates the regular expressions from both, since we want all regexes that go from $Q_{0}$ to final states
-	\item in the alternate path where we include the state $Q_{k}$, we also include $R(k,k,k-1)^{*}$ to account for kleene stars that go from $Q_{k}$ to $Q_{k}$
+	\item instead of the minimum between the two choices (the path from $Q_{i}$ to $Q_{j}$ that goesn't go through $Q_{k}$ and the path that goes through $Q_{k}$), the algorithm concatenates the regular expressions from both, since we want to find all regexes that go from $Q_{0}$ to final states
+	\item When computing the alternate path (that goes through $Q_{k}$), we also include $R(k,k,k-1)^{*}$ to account for kleene stars that go from $Q_{k}$ to $Q_{k}$
 \end{itemize}
 
 \item
@@ -40,7 +40,7 @@ The general case recurrence is similar to the Floyd - Warshall algorithm with th
 	  \Require \text{R be a $|Q| \times |Q|$ matrix}
 	  \Require $(\sum, Q, q0, F, \delta)$
 	  \Function{regular}{$R$, $i$, $j$}
-	  	\For{$j \gets 1, |Q|$}
+	  	\For{$i \gets 1, |Q|$}
 			\For{$j \gets 1, |Q|$}
 				\State $R[i,j] \gets \oslash$ \Comment{empty language}
 				\If{i = j}
@@ -52,7 +52,7 @@ The general case recurrence is similar to the Floyd - Warshall algorithm with th
 		\EndFor
 		
 		\For{$k \gets 1, |Q|$}
-			\For{$j \gets 1, |Q|$}
+			\For{$i \gets 1, |Q|$}
 				\For{$j \gets 1, |Q|$}
 					\State $R[i,j] \gets R[i,j] | R[i, k]R[k,k]^{*}R[k,i]$
 				\EndFor
@@ -64,7 +64,7 @@ The general case recurrence is similar to the Floyd - Warshall algorithm with th
 
 Space: $O(|Q|^2)$. We can use an array instead of a matrix by not explicitly modelling k.
 Thus, each element of the matrix represents R(i,j,k) during the $k$-th iteration.
-After iterating through all the values of k the matrix represents R(i,j,n) where $n=|Q|$
+After iterating through all the values of k the matrix represents R(i,j,n) where $n=|Q|$.
 
 Runtime: $O(|Q|^3)$. This is due to the three nested loops. Each loop has $|Q|$ iterations.
 
