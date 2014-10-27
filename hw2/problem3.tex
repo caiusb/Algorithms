@@ -2,4 +2,63 @@
 \problem{3}
 
 
+\begin{enumerate}[(a)]
 
+	\item In the worst case, every time the new selected element is the new minimum. In this case, line $(*)$ will be run $n$ times.
+	
+	
+	\item 
+	
+	Let’s assume that we have 3 numbers: $1,2,3$
+	Let us try to find the probability of RandomMin entering into line * on 3rd iteration.
+	Random selection can produce following perfmuations:
+	
+	\begin{itemize}
+	
+		\item 123
+		\item 132
+		\item 213
+		\item 231
+		\item 312
+		\item 321
+		
+	\end{itemize}
+	
+	The only way RandomMin can execute into line $(*)$ is by choosing 231 and 321. 
+	So we can fix the last element as the smallest element and permute the remaining two elemens to execute line (*). 
+	We have 2! ways to do it. And total possibilities that can be chosen by RandomMin is 3! for 3 numbers. 
+	So, the probability of entering into line (*) is  $\frac{2!}{3!} = \frac{1}{3} $
+	
+	Lets assume 4 numbers $1, 2, 3, 4$ and we are trying to find probability of executing line (*) on the 4th iteration. 
+	We have 4! permuations and in order to execute line(*) , we need to fix the last number as 1 and permute remaining 3 numbers and this can be done in 3! different ways. 
+	So, the probability of executing line (*) on 4th iteration is $\frac{3!}{4!} = \frac{1}{4}$
+
+	\paragraph{Generalization}
+	
+	While doing the $k$-th iteration, we have total of $k$ numbers randomly chosen from $n$ total numbers. 
+	The total possible ways to execute random min loop is k!. 
+	In order to execute line $(*)$ on the $k$-th iteration, the $k$-th number should be smallest and this can be done by RandomMin in (k-1)! different possible ways (keeping the  $k$-th value fixed with the smallest number and permuting  the remaining numbers).
+
+	So, the probability of executing line $(*)$ in the $k$-th iteration is: $\frac{(k-1)!}{k!} = \frac{1}{k}$
+	Hence the probability of executing line (*) during the $n$-th iteration is: $\frac{1}{n}$.
+	
+	\item
+	
+	We already know from (b) that the probability that line(*) is executed on the $k$-th iteration is 
+	$Pr[\text{Line (*) executed on kth iteration}] = \frac{1}{k}$.
+	
+	The frequency of each element is 1.
+	
+	So, the expected number of executions is :
+	
+	$ E(x) = \sum\limits_{i=1}^n f(i) * pr(i)$
+	
+       $ = \sum\limits_{i=1}^n 1 * \frac{1}{i} $
+       
+       $ = \sum\limits_{i=1}^n \frac{1}{i} $
+	
+	$ = 1 + \frac{1}{2} + ... \frac{1}{n} $
+	
+	$ = Hn$, (nth harmonic number \footnote{Harmonic Number, \url{http://en.wikipedia.org/wiki/Harmonic_number}}).
+
+\end{enumerate}
