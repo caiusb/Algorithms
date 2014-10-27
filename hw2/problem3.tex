@@ -4,7 +4,7 @@
 
 \begin{enumerate}[(a)]
 
-	\item In the worst case, every time the new selected element is the new minimum. In this case, line $(*)$ will be run $n$ times.
+	\item In the worst case, every time the new selected element is the new minimum. \emph{In this case, RandomMin will execute line(*) every time it will run the loop and hence \textbf{line $(*)$ will be run $n$ times.} } 
 	
 	
 	\item 
@@ -30,17 +30,18 @@
 	So, the probability of entering into line (*) is  $\frac{2!}{3!} = \frac{1}{3} $
 	
 	Lets assume 4 numbers $1, 2, 3, 4$ and we are trying to find probability of executing line (*) on the 4th iteration. 
-	We have 4! permuations and in order to execute line(*) , we need to fix the last number as 1 and permute remaining 3 numbers and this can be done in 3! different ways. 
+	We have 4! total permuations and in order to execute line(*) , we need to fix the last number as 1 (the smallest number) and permute remaining 3 numbers and this can be done in 3! different ways. 
 	So, the probability of executing line (*) on 4th iteration is $\frac{3!}{4!} = \frac{1}{4}$
 
 	\paragraph{Generalization}
 	
 	While doing the $k$-th iteration, we have total of $k$ numbers randomly chosen from $n$ total numbers. 
-	The total possible ways to execute random min loop is k!. 
+	The total possible ways to execute random min loop using k numbers is k!. 
 	In order to execute line $(*)$ on the $k$-th iteration, the $k$-th number should be smallest and this can be done by RandomMin in (k-1)! different possible ways (keeping the  $k$-th value fixed with the smallest number and permuting  the remaining numbers).
 
-	So, the probability of executing line $(*)$ in the $k$-th iteration is: $\frac{(k-1)!}{k!} = \frac{1}{k}$
-	Hence the probability of executing line (*) during the $n$-th iteration is: $\frac{1}{n}$.
+	So, the probability of executing line $(*)$ in the $k$-th iteration is: $\frac{(k-1)!}{k!} = \frac{1}{k}$ \\
+	\\
+	\textbf{Hence the probability of executing line (*) during the $n$-th iteration is: $\frac{1}{n}$.} 
 	
 	\item
 	
@@ -51,14 +52,14 @@
 	
 	So, the expected number of executions is :
 	
-	$ E(x) = \sum\limits_{i=1}^n f(i) * pr(i)$
+	$ E(x) = \sum\limits_{k=1}^n 1 * pr($ Line(*)$ $ is$ $ executed$ $ on$ $ kth$ $ iteration$)$
 	
-       $ = \sum\limits_{i=1}^n 1 * \frac{1}{i} $
+       $ = \sum\limits_{k=1}^n 1 * \frac{1}{k} $
        
-       $ = \sum\limits_{i=1}^n \frac{1}{i} $
+       $ = \sum\limits_{k=1}^n \frac{1}{k} $
 	
-	$ = 1 + \frac{1}{2} + ... \frac{1}{n} $
+	\textbf{\emph{$ = 1 + \frac{1}{2} + ... \frac{1}{n} $}}
 	
-	$ = Hn$, (nth harmonic number \footnote{Harmonic Number, \url{http://en.wikipedia.org/wiki/Harmonic_number}}).
+	\textbf{\emph{$ = Hn$, (nth harmonic number }}  \footnote{Harmonic Number, \url{http://en.wikipedia.org/wiki/Harmonic_number}}).
 
 \end{enumerate}
