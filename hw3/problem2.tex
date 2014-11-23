@@ -139,6 +139,16 @@ Analogously, we can prove that $(S \u S', T \n T')$ is minimum \stcut{}.
 \begin{proof}
 Using the same subsets shown in figure~\ref{fig:problem2}, we can write the flow $\| S \u S', T \n T' \|$ as:
 \begin{equation}
-\| S \u S', T \u T' \| = 
+\| S \u S', T \u T' \| = \| A \u B \u D, C \|
 \end{equation}
+This can be rewritten as :
+\begin{equation}
+\| S \u S', T \n T' \| = \| A, C \| + \| B, C \| + \| D, C \|
+\end{equation}
+From the conservation law we know that $\| A, C \| = -|f^{*}|$ and $\|B, C\| = \|D, C\| = |f^{*}|$.
+Therefore,
+\begin{equation}
+\| S \u S', T \n T' \| = |f^{*}|
+\end{equation}
+This shows that $(S \u S', T \n T')$ is a minimal \stcut{}.
 \end{proof}
