@@ -1,5 +1,22 @@
 %!TEX root = main.tex
 \problem{4}
 
+For a linear-programming formulation of the maximum-cardinality bipartite matching problem (given bipartite graph $G = (U \cup V, E)'$, where $E \subseteq U \times V$), we associate each edge in $E$ with a variable $x_{i}$ where $i$ is between $1$ and $|E|$. Each of these variables will be set to 0 if the edge is not in our maximum matching or 1 if the edge is in our maximum matching. Since we want the largest matching, we want to maximize the following objective function:
 
+\begin{equation}\label{objective-function}
+	\sum_{k=1}^{|E|} x_{k}
+\end{equation}
 
+This represents a simple count of the edges. To ensure that these variables correspond to a valid matching in $G$, we need to add some constraints. For each vertex $v \in V$, we will need to add the following equation to our list of constraints:
+
+\begin{equation}\label{matching-constraint}
+	\sum (x_{i} \text{ corresponding to edges adjacent to } v) \le 1
+\end{equation}
+
+We will also need to add constraints ensuring that each $x_{i}$ is either 0 or 1.
+
+\begin{equation}\label{variable-constraint}
+	0 \le x_{i} \le 1
+\end{equation}
+
+This formulation accurately represents the maximum-cardinality bipartite matching problem. Equation~\ref{matching-constraint} will ensure that for each vertex at most 1 edge is chosen to be a part of the matching, and equation~\ref{variable-constraint} will ensure that the solution to the linear program makes sense with respect to our problem (where we either take an edge or we do not take it). In particular, there exists a solution that will result in integer values for all variables $x_{i}$, that is, $\forall i, x_{i} \in \{0, 1\}$. This solution will correspond to a maximum-cardinality matching because it maximizes our objective function, whose value is the cardinality of the set of chosen edges.
