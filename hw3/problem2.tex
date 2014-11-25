@@ -89,48 +89,25 @@ Since $(S \n S', T \u T')$ should be a minimum cut, this means that the followin
 \end{equation}
 Let's prove this:
 \begin{proof}
-First, we can break the flow $\|S,T\|$ as:
-\begin{equation}
-\| S, T \| \overset{(\ref{eq:breaking-the-flow})}{=} \| A \u B , C \u D \| = \| A, B \u C \u D \|
-\end{equation}
-If we use equations (\ref{eq:breaking-the-flow}) and (\ref{eq:breaking-the-flow-intersect}) we come to the following equality:
-\begin{equation}
-\| A, B \u C \u D \| = \| A \u B, D \u C \|
-\end{equation}
-We can rewrite it as:
-\begin{equation}
-\| A, B \| + \| A, C \| + \| A, D \| = \| A, D \| + \| A, C\| + \| B, D \|  + \| B, C \|
-\end{equation}
-which we simplify to
-\begin{equation}
-\| A, B\| = \| B, D \| + \| B, C \|
-\label{eq:simplified-flow}
-\end{equation}
 
-From the conservation law, we know that $\delta f(v)=0, \forall v \in V \setminus \{s,t\}$.
-Since ${s,t} \notin B$ and ${s,t} \notin D$, from the conservation law we can deduce that 
+Let's write
 \begin{equation}
-\| B, D \| = 0
-\label{eq:bd-is-zero}
+|f| = \|A, B \u C \u D \|
+\label{eq:def-flow}
 \end{equation}
-
-Since $s \in A$, from the conservation law we can deduce that $\delta A = |f^{*}|$. Also, since $\{s, t \} \notin B$ we can define the flow from $A$ to $B$ as:
+From the conservation law we know that, for any $U \subset V$ the flow coming out of U is
 \begin{equation}
-\| A, B \| = |f^{*}|
-\label{eq:ab-is-f}
+\delta f(U) = 
+  \begin{cases}
+    0 & if {s,t} \in U \text{ or } {s,t} \notin U\\
+    |f| & if s \in U, t \notin U \\
+    -|f| & if s \notin U, T \in U
+  \end{cases}
 \end{equation}
-
-Similarly, since $t \in C$ and $t \notin B$, using the conservation law, we can define the flow from $B$ to $C$ as:
+From \refeq{eq:def-flow} we can write the flow $\|f\|$ as being:
 \begin{equation}
-\| B, C \| = |f^{*}|
-\label{eq:bc-is-f}
+|f| = \|A, B\| + \|A, C\| + \|A, D\| = \delta f(A) = |f^{*}|
 \end{equation}
-
-From equations \refeq{eq:bd-is-zero}, \refeq{eq:ab-is-f} and \refeq{eq:bc-is-f}, we can write equation \refeq{eq:simplified-flow} as:
-\begin{equation}
-|f^{*}| = |f^{*}|,
-\end{equation}
-which is true. 
 
 We can therefore conclude that $(S \n S', T \u T')$ is a minimum \stcut{} in G.
 \end{proof}
@@ -139,13 +116,12 @@ Analogously, we can prove that $(S \u S', T \n T')$ is minimum \stcut{}.
 \begin{proof}
 Using the same subsets shown in figure~\ref{fig:problem2}, we can write the flow $\| S \u S', T \n T' \|$ as:
 \begin{equation}
-\| S \u S', T \u T' \| = \| A \u B \u D, C \|
+|f| = \| S \u S', T \n T' \| = \| A, C \| + \| B, C \| + \| D, C \|
 \end{equation}
-This can be rewritten as :
+From the conservation law, we can write his as:
 \begin{equation}
-\| S \u S', T \n T' \| = \| A, C \| + \| B, C \| + \| D, C \|
+|f| = -\delta f(C) = |f^{*}|
 \end{equation}
-From the conservation law we know that $\| A, C \| = -|f^{*}|$ and $\|B, C\| = \|D, C\| = |f^{*}|$.
 Therefore,
 \begin{equation}
 \| S \u S', T \n T' \| = |f^{*}|
