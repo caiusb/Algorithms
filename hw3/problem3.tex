@@ -9,23 +9,21 @@ Let $(x, y)$ with $ x, y \in N$ be backup pairs where device $x$ is backed up by
 
 Let $S$ be a valid backup scheme. Then $S = \{(x_S, y_S) | x_S, y_S \in N \}$ where the following constraints hold:
 
-\begin{itemize}
+\begin{enumerate}
 
-	\item Device $x_S$ must be backed up exactly $k$ times: $c(x_S) = k$.
+	\item Any device $x_S$ must be backed up exactly $k$ times: $c(x_S) = k$.
 	
-	\item All devices must be backed up: $\bigcup_{x_S \in N} x_s = N $
+	\item Any device $y_S$ must backup at most $b$ devices: $c(y_S) \leq b$.
 	
-	\item Device $y_S$ must backup at most $b$ devices: $c(y_S) \leq b$.
-	
-	\item Device $y_S$ can either backup device $x_S$ or not: $c(x_S, y_S) \leq 1$.
+	\item Any device $y_S$ can either backup device $x_S$ or not: $c(x_S, y_S) \leq 1$.
 
-\end{itemize}
+\end{enumerate}
 
 A network with a viable backup scheme has the following properties:
 \begin{enumerate}
 	\item In a viable backup scheme there are $|N| * k$ backups.
 	
-	\item For a viable backup scheme to exist, $|N| *k \leq |N| * b$. This means that $k \leq b$.
+	\item For a viable backup scheme to exist, there have to be anough backup devices in order to cover all devices: $|N| *k \leq |N| * b$. This means that $k \leq b$.
 	
 	\item For a viable backup scheme to exist, each device $x$ must be in distance of at least $k$ other devices. This means that at least $|N| * k$ pairs of devices are in distance of each other.
 \end{enumerate}
@@ -40,7 +38,7 @@ $Alg(N, d[1..n, 1..n], k, b, D):$
 
 	\item Construct directed graph $G=(X \cup Y \cup \{s, t\}, E)$, $ X=Y=\{ vertice_i | \forall{n_i \in N \text{ $vertice_i$ represents $n_i$}}\}$.
 	
-	\item Construct edges $E = \{ x \rightarrow y \} \cup \{ s \rightarrow x \} \cup \{ y \rightarrow t \}$ such that $x \in X, y \in Y$. Edges  $x \rightarrow y$ are constructed only for devices where $d[x, y] \leq D$ and have the meaning that the device represented by vertice $x$ can be backed up by the device represented by vertex $y$ (since they are in distance of each other).
+	\item Construct edges $E = \{ x \rightarrow y \} \cup \{ s \rightarrow x \} \cup \{ y \rightarrow t \}$ where $x \in X, y \in Y$. Edges  $x \rightarrow y$ are constructed only for devices where $d[x, y] \leq D$ and have the meaning that the device represented by vertice $x$ can be backed up by the device represented by vertex $y$ (since they are in distance of each other).
 	
 	\item Assign the following capacities:
 	\begin{itemize}
