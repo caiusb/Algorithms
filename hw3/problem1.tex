@@ -80,7 +80,14 @@ Case 2:\\
 	Claim 1 : After reducing the flow across one of the s to a path by 1, if there exists an augmented path from s to t, it will pass through a. 
 	Proof:	
 	Assume that we decrease the flow across path $s->x->y->z->a$  by 1. While augmented path exists if decrease flow across path $s->p->q->r->a$. and Let that augmented path be $s->p->q->......->t$. So it passed through q but does not passes through r.
-	The situation is shown in figure. 
+	The situation is shown in figure 1.
+	\begin{figure}[1a]
+    \centering
+    \includegraphics[scale=0.20]{1a}
+    \caption{Proof of claim 1}
+    \label{fig:1a}
+\end{figure}
+ 
 	As we have decreased flow across the first path, we have residual capacity of 1 available along all the edges of that path. Now as we have, a flow from r to a, $cf(a,r) = f(r,a) > 0$, $cf(r,q) = f(q,r) > 0$. So, we have an augmented path available from $s->x->y->z->a->r->q->.......->t$. This is different than the orginal path $s->p->q->......->t$, but still it is an augmented path with bottleneck of 1 and \textbf{it passes through a}. 
 	
 	
